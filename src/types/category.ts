@@ -20,7 +20,6 @@ export const categories: Category[] = [
   { name: 'Hotels', path: '/hotels' },
   { name: 'Health and Fitness', path: '/health-and-fitness' },
   { name: 'Ground Transport', path: '/ground-transport' },
-  { name: 'Girls and Flowers', path: '/girls-and-flowers' },
   { name: 'Gambling', path: '/gambling' },
   { name: 'Furniture', path: '/furniture' },
   { name: 'Food and Drink', path: '/foond-and-drink' },

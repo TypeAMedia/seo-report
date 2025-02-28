@@ -23,12 +23,12 @@ interface Props {
 export default async function CategoryPage({ params }: Props) {
   // Await the params first
   const resolvedParams = await params
-  
+
   // Use resolvedParams instead of params directly
   const category = categories.find(
     (cat) => cat.path === `/${resolvedParams.category}`
   )
-  
+
   if (!category) {
     notFound()
   }
@@ -36,7 +36,7 @@ export default async function CategoryPage({ params }: Props) {
   const [domainsData, linksData, lighthouseData] = await Promise.all([
     getDomainsData(),
     getLinksData(),
-    getLighthouseData()
+    getLighthouseData(),
   ])
 
   const categoryName = category.name.toLowerCase()
