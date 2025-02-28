@@ -10,6 +10,9 @@ import { AverageData } from '@/types/data'
 import { AccordionTable } from '@/components/AccordionTable'
 import { TableHeader } from '@/types/data'
 import * as d3 from 'd3'
+import Image from 'next/image'
+
+export const dynamic = 'force-static'
 
 interface Props {
   params: Promise<{
@@ -18,16 +21,25 @@ interface Props {
 }
 
 export default async function CategoryPage({ params }: Props) {
+  // Await the params first
   const resolvedParams = await params
+  
+  // Use resolvedParams instead of params directly
   const category = categories.find(
     (cat) => cat.path === `/${resolvedParams.category}`
   )
+  
+  if (!category) {
+    notFound()
+  }
 
-  const domainsData = await getDomainsData()
-  const linksData = await getLinksData()
-  const lighthouseData = await getLighthouseData()
+  const [domainsData, linksData, lighthouseData] = await Promise.all([
+    getDomainsData(),
+    getLinksData(),
+    getLighthouseData()
+  ])
 
-  const categoryName = category?.name.toLowerCase() || null
+  const categoryName = category.name.toLowerCase()
 
   const foundCategoryDataDomains = domainsData.filter(
     (d) => d.category === categoryName
@@ -85,22 +97,18 @@ export default async function CategoryPage({ params }: Props) {
 
   const tableHeaders: TableHeader[] = [
     {
-      icon: '/icons/rank.svg',
+      icon: '/seo-report/icons/rank.svg',
       name: 'Rank',
     },
     {
-      icon: '/icons/competitor.svg',
+      icon: '/seo-report/icons/competitor.svg',
       name: 'Competitor',
     },
     {
-      icon: '/icons/seoScore.svg',
+      icon: '/seo-report/icons/seoScore.svg',
       name: 'SEO Activity Score',
     },
   ]
-
-  if (!category) {
-    notFound()
-  }
 
   // Sort and add rank to finalData
   const finalDataWithRank = finalData
@@ -179,7 +187,6 @@ export default async function CategoryPage({ params }: Props) {
               <Circles
                 key={data.name}
                 name={data.name}
-                description={data.description}
                 color={data.color}
                 values={data.value.toString()}
               />
@@ -196,10 +203,12 @@ export default async function CategoryPage({ params }: Props) {
             <div className='bg-[#232B41] flex items-center md:gap-24 gap-8 rounded-md md:px-16 px-5 py-6'>
               {tableHeaders.map((header) => (
                 <div key={header.name} className='flex flex-col items-center'>
-                  <img
+                  <Image
                     className='w-10 h-10 md:w-14 md:h-14'
                     src={header.icon}
                     alt={header.name}
+                    width={56}
+                    height={56}
                   />
                   <div className='text-white text-lg md:text-xl mt-4 font-rubik'>
                     {header.name}
@@ -226,9 +235,8 @@ export default async function CategoryPage({ params }: Props) {
   )
 }
 
-// Generate static paths for all categories
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return categories.map((category) => ({
-    category: category.path.slice(1),
+    category: category.path.replace('/', ''),
   }))
 }

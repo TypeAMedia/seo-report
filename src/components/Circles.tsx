@@ -1,13 +1,11 @@
 interface CircleProps {
   name: string
-  description: string
   color: string
   values: string
 }
 
 export default function Circles({
   name,
-  description,
   color,
   values,
 }: CircleProps) {
