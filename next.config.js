@@ -7,9 +7,6 @@ const nextConfig = {
   basePath: '/seo-report',
   assetPrefix: '/seo-report',
   trailingSlash: true,
-  experimental: {
-    appDir: true,
-  }
 }
 
 module.exports = nextConfig;
