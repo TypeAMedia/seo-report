@@ -40,28 +40,30 @@ export function AccordionTable({ data }: AccordionTableProps) {
 
   console.log(maxValues)
   return (
-    <AccordionPrimitive.Root type='single' collapsible className='w-full'>
+    <AccordionPrimitive.Root type='single' collapsible  className='w-full overflow-x-auto'>
       {data.map((item, index) => (
         <AccordionPrimitive.Item
           key={index}
           value={`item-${index}`}
           className='bg-white mt-1 rounded-md p-6'
         >
-          <AccordionPrimitive.Trigger className='flex w-full text-petrolGray items-center gap-20 pl-12 pr-5 py-4'>
+          <AccordionPrimitive.Trigger className='flex w-full text-petrolGray items-center gap-10 md:gap-20 md:pl-12 pr-5 py-2 md:py-4'>
             <span className='text-xl font-bold'>{item.rank}</span>
-            <span className='font-medium flex-1 underline'>{item.domain}</span>
-            <span className='text-center font-light'>
+            <span className='font-medium text-start w-[180px] md:flex-1 underline'>{item.domain}</span>
+            <span className='md:text-center text-start font-light'>
               <Rollover value={item.seo_score} />
             </span>
             <div
               onClick={() => toggleItem(index)}
-              className={`px-3 py-1 font-rubik text-[16px] rounded-lg hover:opacity-90 cursor-pointer flex items-center gap-2 ${
+              className={`md:px-3 px-1 py-1 font-rubik text-[16px] rounded-lg hover:opacity-90 cursor-pointer flex items-center gap-2 ${
                 activeItems[index]
                   ? 'bg-green text-white'
                   : 'bg-white text-petrolGray border-2 border-[#D9D9D9]'
               }`}
             >
-              {activeItems[index] ? 'Close details' : 'More details'}
+              <span className='hidden md:inline'>
+                {activeItems[index] ? 'Close details' : 'More details'}
+              </span>
               <svg
                 width='31'
                 height='31'

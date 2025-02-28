@@ -15,11 +15,11 @@ export default function RootLayout({
   return (
     <html lang='en' className={`${inter} ${rubik}`}>
       <body>
-        <div className='bg-background p-4 min-h-screen'>
+        <div className='bg-background md:p-4 p-0 min-h-screen'>
           <a href='/'>
-            <img src='/logo.svg' alt='logo' className='w-32 md:w-auto' />
+            <img src='/logo.svg' alt='logo' className='w-10 md:w-auto' />
           </a>
-          <div className='flex flex-col items-center justify-center p-2 md:p-4'>
+          <div className='flex flex-col items-center justify-center p-0 md:p-4'>
             <img src='/centeredLogo.svg' className='w-24 md:w-auto' />
             <img className='mt-4 w-32 md:w-auto' src='/centeredType.svg' />
             {children}

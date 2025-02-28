@@ -162,7 +162,7 @@ export default async function CategoryPage({ params }: Props) {
   ]
 
   return (
-    <div className='mt-6 text-xl text-center'>
+    <div className='mt-6 text-xl mx-auto w-full text-center'>
       <h1 className='text-2xl md:text-5xl'> {category.name} Industry Report</h1>
       <div className='mx-auto mb-4 w-full md:w-[50%] font-inter mt-6 px-4'>
         This report breaks down the top 50 competitors in {category.name} and
@@ -190,10 +190,10 @@ export default async function CategoryPage({ params }: Props) {
       <div className='my-10 text-xl md:text-2xl font-rubik'>
         Top 50 competitors {category.name}
       </div>
-      <div className='px-4 md:px-0'>
+      <div className='md:px-4 px-0'>
         <div className='overflow-x-auto w-full'>
           <div className='min-w-[800px] md:w-[60%] md:mx-auto'>
-            <div className='bg-[#232B41] flex items-center gap-24 rounded-md px-16 py-6'>
+            <div className='bg-[#232B41] flex items-center md:gap-24 gap-8 rounded-md md:px-16 px-5 py-6'>
               {tableHeaders.map((header) => (
                 <div key={header.name} className='flex flex-col items-center'>
                   <img
